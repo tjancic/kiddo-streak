@@ -12,6 +12,8 @@ data class StreakDto(
     val reminderType: String,
     val reminderValue: Int,
     val reminderMinute: Int,
+    val reminderFromHour: Int = 8,
+    val reminderToHour: Int = 22,
     val createdAt: String,
     val isArchived: Boolean,
     val isPrimary: Boolean = false,

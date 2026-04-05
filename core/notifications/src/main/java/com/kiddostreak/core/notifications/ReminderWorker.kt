@@ -29,10 +29,22 @@ class ReminderWorker(
         const val WORK_NAME_FIXED = "streak_reminder_fixed"
         const val KEY_FIXED_HOUR = "fixed_hour"
         const val KEY_FIXED_MINUTE = "fixed_minute"
+        const val KEY_ACTIVE_FROM_HOUR = "active_from_hour"
+        const val KEY_ACTIVE_TO_HOUR = "active_to_hour"
         private const val NOTIFICATION_ID = 1001
     }
 
     override suspend fun doWork(): Result {
+        // Skip notification if outside the active window for periodic reminders
+        val fromHour = inputData.getInt(KEY_ACTIVE_FROM_HOUR, -1)
+        val toHour = inputData.getInt(KEY_ACTIVE_TO_HOUR, -1)
+        if (fromHour >= 0 && toHour >= 0) {
+            val currentHour = java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY)
+            if (currentHour < fromHour || currentHour >= toHour) {
+                return Result.success()
+            }
+        }
+
         val repository: StreakRepository = getKoin().get()
         val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
 

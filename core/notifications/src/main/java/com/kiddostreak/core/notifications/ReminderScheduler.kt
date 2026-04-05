@@ -19,7 +19,11 @@ class ReminderScheduler(private val context: Context) : ReminderSchedulerPort {
     override fun schedule(reminderInterval: ReminderInterval) {
         when (reminderInterval) {
             is ReminderInterval.None -> cancelAllReminders()
-            is ReminderInterval.Periodic -> schedulePeriodicReminder(reminderInterval.hours)
+            is ReminderInterval.Periodic -> schedulePeriodicReminder(
+                reminderInterval.hours,
+                reminderInterval.fromHour,
+                reminderInterval.toHour,
+            )
             is ReminderInterval.FixedTime -> scheduleFixedTimeReminder(
                 reminderInterval.hour,
                 reminderInterval.minute,
@@ -31,11 +35,18 @@ class ReminderScheduler(private val context: Context) : ReminderSchedulerPort {
         cancelAllReminders()
     }
 
-    private fun schedulePeriodicReminder(intervalHours: Int) {
+    private fun schedulePeriodicReminder(intervalHours: Int, fromHour: Int, toHour: Int) {
+        val inputData = workDataOf(
+            ReminderWorker.KEY_ACTIVE_FROM_HOUR to fromHour,
+            ReminderWorker.KEY_ACTIVE_TO_HOUR to toHour,
+        )
+
         val request = PeriodicWorkRequestBuilder<ReminderWorker>(
             intervalHours.toLong(),
             TimeUnit.HOURS,
-        ).build()
+        )
+            .setInputData(inputData)
+            .build()
 
         workManager.enqueueUniquePeriodicWork(
             ReminderWorker.WORK_NAME_PERIODIC,

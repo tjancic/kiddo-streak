@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,6 +24,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TimeInput
 import androidx.compose.material3.TimePicker
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
@@ -30,6 +32,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -201,17 +204,30 @@ fun StreakEditorScreen(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
-                val reminderOptions = listOf(
-                    ReminderInterval.None to stringResource(R.string.editor_reminder_none),
-                    ReminderInterval.Periodic(2) to stringResource(R.string.editor_reminder_2h),
-                    ReminderInterval.Periodic(4) to stringResource(R.string.editor_reminder_4h),
-                    ReminderInterval.Periodic(12) to stringResource(R.string.editor_reminder_12h),
+                val currentPeriodic = state.reminderInterval as? ReminderInterval.Periodic
+                val periodicHourOptions = listOf(
+                    2 to stringResource(R.string.editor_reminder_2h),
+                    4 to stringResource(R.string.editor_reminder_4h),
+                    12 to stringResource(R.string.editor_reminder_12h),
                 )
 
-                reminderOptions.forEach { (interval, label) ->
+                FilterChip(
+                    selected = state.reminderInterval is ReminderInterval.None,
+                    onClick = { onAction(StreakEditorAction.OnReminderSelect(ReminderInterval.None)) },
+                    label = { Text(stringResource(R.string.editor_reminder_none)) },
+                )
+
+                periodicHourOptions.forEach { (hours, label) ->
                     FilterChip(
-                        selected = state.reminderInterval == interval,
-                        onClick = { onAction(StreakEditorAction.OnReminderSelect(interval)) },
+                        selected = currentPeriodic?.hours == hours,
+                        onClick = {
+                            val interval = ReminderInterval.Periodic(
+                                hours = hours,
+                                fromHour = currentPeriodic?.fromHour ?: 8,
+                                toHour = currentPeriodic?.toHour ?: 22,
+                            )
+                            onAction(StreakEditorAction.OnReminderSelect(interval))
+                        },
                         label = { Text(label) },
                     )
                 }
@@ -233,6 +249,70 @@ fun StreakEditorScreen(
                 )
             }
 
+            // Active window picker when periodic reminder is selected
+            AnimatedVisibility(visible = state.reminderInterval is ReminderInterval.Periodic) {
+                val periodic = state.reminderInterval as? ReminderInterval.Periodic
+                val fromTimeState = rememberTimePickerState(
+                    initialHour = periodic?.fromHour ?: 8,
+                    initialMinute = 0,
+                    is24Hour = true,
+                )
+                val toTimeState = rememberTimePickerState(
+                    initialHour = periodic?.toHour ?: 22,
+                    initialMinute = 0,
+                    is24Hour = true,
+                )
+
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(
+                                text = stringResource(R.string.editor_reminder_active_from),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            TimeInput(state = fromTimeState)
+                        }
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(
+                                text = stringResource(R.string.editor_reminder_active_to),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            TimeInput(state = toTimeState)
+                        }
+                    }
+
+                    LaunchedEffect(fromTimeState.hour) {
+                        val p = (state.reminderInterval as? ReminderInterval.Periodic) ?: return@LaunchedEffect
+                        if (fromTimeState.hour != p.fromHour) {
+                            onAction(
+                                StreakEditorAction.OnReminderSelect(
+                                    p.copy(fromHour = fromTimeState.hour),
+                                ),
+                            )
+                        }
+                    }
+                    LaunchedEffect(toTimeState.hour) {
+                        val p = (state.reminderInterval as? ReminderInterval.Periodic) ?: return@LaunchedEffect
+                        if (toTimeState.hour != p.toHour) {
+                            onAction(
+                                StreakEditorAction.OnReminderSelect(
+                                    p.copy(toHour = toTimeState.hour),
+                                ),
+                            )
+                        }
+                    }
+                }
+            }
+
             // Time picker when specific time is selected
             AnimatedVisibility(visible = state.reminderInterval is ReminderInterval.FixedTime) {
                 val fixedTime = state.reminderInterval as? ReminderInterval.FixedTime
@@ -241,7 +321,10 @@ fun StreakEditorScreen(
                     initialMinute = fixedTime?.minute ?: 0,
                 )
 
-                Column {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
                     Spacer(modifier = Modifier.height(12.dp))
                     TimePicker(
                         state = timePickerState,

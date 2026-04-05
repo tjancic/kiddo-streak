@@ -33,6 +33,8 @@
     <string name="editor_reminder_4h">Every 4h</string>
     <string name="editor_reminder_12h">Every 12h</string>
     <string name="editor_reminder_specific_time">Specific Time</string>
+    <string name="editor_reminder_active_from">From</string>
+    <string name="editor_reminder_active_to">To</string>
     <string name="editor_create_streak">Create Streak</string>
     <string name="editor_save_changes">Save Changes</string>
     <string name="editor_error_empty_name">Please enter a streak name</string>
