@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_description_tiny">Quick streak glance</string>
+    <string name="widget_description_small">Streak with progress</string>
+    <string name="widget_description_medium">Streaks with checkmarks</string>
+    <string name="widget_description_large">Shows up to 7 streaks</string>
+</resources>

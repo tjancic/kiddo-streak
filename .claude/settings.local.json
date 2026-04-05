@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:medium.com)",
+      "WebFetch(domain:www.smashingmagazine.com)",
+      "WebFetch(domain:www.figma.com)",
+      "WebFetch(domain:play.google.com)",
+      "WebSearch",
+      "Bash(java -version)",
+      "Bash(kotlin -version)",
+      "Bash(gradle wrapper:*)",
+      "Bash(git init:*)",
+      "Bash(./gradlew assembleDebug)",
+      "Bash(cp -r /tmp/gradle-init-ks/gradle/wrapper/ /Users/tomislavjancic/Documents/Projects/KiddoStreak/gradle/wrapper/)",
+      "Bash(chmod +x /Users/tomislavjancic/Documents/Projects/KiddoStreak/gradlew)",
+      "Bash(/Users/tomislavjancic/Documents/Projects/KiddoStreak/gradlew assembleDebug)",
+      "Bash(git add:*)",
+      "Read(//tmp/**)",
+      "Bash(/Users/tomislavjancic/Documents/Projects/KiddoStreak/gradlew clean:*)",
+      "Bash(./gradlew :feature:widget:compileDebugKotlin)",
+      "Bash(./gradlew :feature:widget:dependencies --configuration debugRuntimeClasspath)",
+      "Bash(xargs cat:*)",
+      "Bash(./gradlew build:*)",
+      "Bash(./gradlew :feature:streak:presentation:compileDebugKotlin)",
+      "Bash(./gradlew :feature:streak:presentation:compileDebugKotlin :core:notifications:compileDebugKotlin :feature:streak:domain:compileKotlin --rerun-tasks)",
+      "Bash(git stash:*)",
+      "Bash(./gradlew :core:notifications:lintDebug)"
+    ]
+  }
+}

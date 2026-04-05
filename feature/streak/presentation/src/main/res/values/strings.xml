@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App -->
+    <string name="app_name">KiddoStreak</string>
+
+    <!-- Home Screen -->
+    <string name="home_settings">Settings</string>
+    <string name="home_add_streak">Add new streak</string>
+    <string name="home_active_streaks">Active</string>
+    <string name="home_completed_today">Done today</string>
+    <string name="home_streak_day_count">%1$d day streak</string>
+    <string name="home_milestone_celebration">%1$s reached %2$d days!</string>
+    <string name="home_empty_title">No streaks yet</string>
+    <string name="home_empty_subtitle">Start building great habits by creating your first streak. Consistency is the key to success!</string>
+    <string name="home_empty_cta">Create your first streak</string>
+
+    <!-- Streak Editor Screen -->
+    <string name="editor_title_new">New Streak</string>
+    <string name="editor_title_edit">Edit Streak</string>
+    <string name="editor_name_label">Streak name</string>
+    <string name="editor_name_placeholder">e.g. Read for 20 minutes</string>
+    <string name="editor_emoji_section">Choose an emoji</string>
+    <string name="editor_color_section">Pick a color</string>
+    <string name="editor_frequency_section">Frequency</string>
+    <string name="editor_reminder_section">Reminder</string>
+    <string name="editor_frequency_daily">Daily</string>
+    <string name="editor_frequency_weekdays">Weekdays</string>
+    <string name="editor_frequency_weekends">Weekends</string>
+    <string name="editor_frequency_custom">Custom</string>
+    <string name="editor_custom_days_label">Which days?</string>
+    <string name="editor_reminder_none">None</string>
+    <string name="editor_reminder_2h">Every 2h</string>
+    <string name="editor_reminder_4h">Every 4h</string>
+    <string name="editor_reminder_12h">Every 12h</string>
+    <string name="editor_reminder_specific_time">Specific Time</string>
+    <string name="editor_create_streak">Create Streak</string>
+    <string name="editor_save_changes">Save Changes</string>
+    <string name="editor_error_empty_name">Please enter a streak name</string>
+    <string name="editor_error_name_too_long">Name must be 50 characters or fewer</string>
+    <string name="editor_error_invalid_color">Invalid color selected</string>
+    <string name="editor_error_custom_days_empty">Select at least one day</string>
+    <string name="editor_save_error">Failed to save streak. Please try again.</string>
+
+    <!-- Day abbreviations -->
+    <string name="day_mon">Mon</string>
+    <string name="day_tue">Tue</string>
+    <string name="day_wed">Wed</string>
+    <string name="day_thu">Thu</string>
+    <string name="day_fri">Fri</string>
+    <string name="day_sat">Sat</string>
+    <string name="day_sun">Sun</string>
+
+    <!-- Streak Detail Screen -->
+    <string name="detail_more_options">More options</string>
+    <string name="detail_edit">Edit</string>
+    <string name="detail_archive">Archive</string>
+    <string name="detail_set_as_main">Set as main</string>
+    <string name="detail_current_streak">Current Streak</string>
+    <string name="detail_longest_streak">Longest Streak</string>
+    <string name="detail_total_days">Total Days</string>
+    <string name="detail_completion_rate">Completion Rate</string>
+    <string name="detail_milestone">Milestone</string>
+    <string name="detail_next_milestone">Next: %1$s</string>
+    <string name="detail_current_milestone_label">Achieved: %1$s</string>
+    <string name="detail_activity">Activity</string>
+    <string name="detail_check_in">Check In</string>
+    <string name="detail_completed">Completed!</string>
+
+    <!-- Milestones -->
+    <string name="milestone_week">1 Week</string>
+    <string name="milestone_two_weeks">2 Weeks</string>
+    <string name="milestone_month">1 Month</string>
+    <string name="milestone_quarter">3 Months</string>
+    <string name="milestone_hundred">100 Days</string>
+    <string name="milestone_year">1 Year</string>
+
+    <!-- Errors -->
+    <string name="error_generic">Something went wrong. Please try again.</string>
+</resources>

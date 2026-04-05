@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Settings</string>
+
+    <string name="settings_section_notifications">Notifications</string>
+    <string name="settings_enable_reminders">Enable reminders</string>
+    <string name="settings_enable_reminders_desc">Receive periodic reminders to complete your streaks</string>
+    <string name="settings_interval_2h">2h</string>
+    <string name="settings_interval_4h">4h</string>
+    <string name="settings_interval_12h">12h</string>
+    <string name="settings_interval_custom">Custom time</string>
+
+    <string name="settings_section_appearance">Appearance</string>
+    <string name="settings_dynamic_colors">Dynamic colors</string>
+    <string name="settings_dynamic_colors_desc">Use Material You colors from your wallpaper</string>
+    <string name="settings_show_completed">Show completed streaks</string>
+    <string name="settings_show_completed_desc">Display streaks that have been completed today</string>
+
+    <string name="settings_section_about">About</string>
+    <string name="settings_app_name">KiddoStreak</string>
+    <string name="settings_version">Version %1$s</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_disk_full">Storage is full. Please free up space and try again.</string>
+    <string name="error_not_found">The requested item was not found.</string>
+    <string name="error_unknown">An unexpected error occurred. Please try again.</string>
+</resources>
